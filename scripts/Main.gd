@@ -92,8 +92,12 @@ func lose():
 	character.die()
 	bar.set_process(false)
 	set_process_input(false)
+	show_menu()
 	get_node("Timer").start()
 	 
 
 func _on_Timer_timeout():
 	get_tree().reload_current_scene()
+	
+	
+
