@@ -92,7 +92,6 @@ func lose():
 	character.die()
 	bar.set_process(false)
 	set_process_input(false)
-	show_menu()
 	get_node("Timer").start()
 	 
 
