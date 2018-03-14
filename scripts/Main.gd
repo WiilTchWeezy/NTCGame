@@ -92,6 +92,9 @@ func lose():
 	character.die()
 	bar.set_process(false)
 	set_process_input(false)
+	var highScore = Transition.read_savegame()
+	if (points > highScore) :
+		Transition.save(points)
 	Transition.fade_to("res://Scenes/GameOver.tscn")
 	
 	
