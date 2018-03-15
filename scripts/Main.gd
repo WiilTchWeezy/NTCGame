@@ -10,6 +10,8 @@ var barrel = preload("res://Scenes/Barrel.tscn")
 var barrelRight = preload("res://Scenes/EnemyBarrelRight.tscn")
 var barrelLeft = preload("res://Scenes/EnemyBarrelLeft.tscn")
 
+var admob_banner_id = "ca-app-pub-1586874665810792/1617702534"
+
 var lastHasEnemy
 
 var points = 0
@@ -19,6 +21,14 @@ func _ready():
 	set_process_input(true)
 	beginGenerate()
 	bar.connect("lost",self,"lose")
+	get_node("show_banner_button").connect("pressed", self, "_on_show_banner_button_pressed")
+	
+	if(Globals.has_singleton("bbAdmob")):
+		admob = Globals.get_singleton("bbAdmob")
+		#You can call admob.init_admob_test or admob.init_admob_real
+		#If the third argument is true, the banner ad will be at the top of the screen
+		#Function prototype init_admob_banner_test(int instance_id, string app_banner_id, boolean isTop)
+		admob.init_admob_banner_test(get_instance_ID(), admob_banner_id, false)
 	
 func _input(event):
 	event = camera.make_input_local(event)
@@ -98,4 +108,6 @@ func lose():
 	Transition.fade_to("res://Scenes/GameOver.tscn")
 	
 	
-
+func _on_show_banner_button_pressed():
+	if admob != null:
+		admob.show_banner()
